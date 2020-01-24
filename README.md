@@ -1,2 +1,3 @@
-# sorting-slow-mo
-Fancy visualization of sorting algorithms
+# Sorting Slow-Mo
+
+One day I'll add something here.
