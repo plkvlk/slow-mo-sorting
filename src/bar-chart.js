@@ -26,6 +26,7 @@ export class BarChart extends React.Component {
             values.push({
                 value: this.randomNumber(),
                 sortingState: BAR_STATE.default,
+                pivotIndex: false,
             })
         }
 
@@ -69,6 +70,7 @@ export class BarChart extends React.Component {
             await sleep(component.state.speed);
 
             for(let i = start; i < end; i++) {
+                array[pivotIndex].pivotIndex = true;
                 if (array[i].value < pivotValue) {
                     if (i > pivotIndex) {
                         array[i].sortingState = BAR_STATE.swapping;
@@ -76,6 +78,7 @@ export class BarChart extends React.Component {
                         await sleep(component.state.speed);
 
                         swap(i, pivotIndex, array);
+                        array[i].pivotIndex = false;
 
                         component.setState({barValues: array});
                         await sleep(component.state.speed);
@@ -87,6 +90,7 @@ export class BarChart extends React.Component {
                         component.setState({barValues: array});
                         await sleep(component.state.speed);
                         array[i].sortingState = BAR_STATE.default;
+                        array[pivotIndex].pivotIndex = false;
                         component.setState({barValues: array});
                     }
 
@@ -96,6 +100,7 @@ export class BarChart extends React.Component {
                     array[i].sortingState = BAR_STATE.doNothing;
                     component.setState({barValues: array});
                     await sleep(component.state.speed);
+                    array[pivotIndex].pivotIndex = false;
                     array[i].sortingState = BAR_STATE.default;
                     component.setState({barValues: array});
                 }
@@ -126,12 +131,12 @@ export class BarChart extends React.Component {
             }
             let index = await lomutoPartition(array, start, end, component);
 
-            await Promise.all([
-              quickSort(array, start, index - 1, component),
-              quickSort(array, index + 1, end, component)
-            ]);
-            // await quickSort(array, start, index - 1, component);
-            // await quickSort(array, index + 1, end, component);
+            // await Promise.all([
+            //   quickSort(array, start, index - 1, component),
+            //   quickSort(array, index + 1, end, component)
+            // ]);
+            await quickSort(array, start, index - 1, component);
+            await quickSort(array, index + 1, end, component);
         }
 
         await quickSort(array, 0, array.length - 1, this);

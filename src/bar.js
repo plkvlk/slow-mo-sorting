@@ -29,7 +29,6 @@ export class Bar extends React.Component {
     let classes = BAR_STATE.default;
 
     if (this.props.sortingState !== BAR_STATE.default) {
-      console.log(this.props.sortingState);
       classes += " ";
       classes += this.props.sortingState;
     }
