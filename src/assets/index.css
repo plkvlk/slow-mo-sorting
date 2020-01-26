@@ -35,8 +35,11 @@ body {
 	margin: 0 auto;
 	width: 700px;
 	padding: 0 20px;
-	background-size: auto;
+	background-size: 100%;
 	background-attachment: fixed;
+	top: 0;
+	left: 0;
+	min-height: 100%;
 }
 
 /*Buttons*/
