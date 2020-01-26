@@ -18,7 +18,9 @@ export class BarChart extends React.Component {
     }
 
     randomNumber() {
-        return Math.floor(Math.random() * 100);
+        let min = 4;
+        let max = 100;
+        return Math.floor(Math.random() * (max - min) ) + min;
     }
 
     generateBarValues(count) {
@@ -204,10 +206,8 @@ export class BarChart extends React.Component {
         return (
             [
                 <div className="sorting-buttons">
-                    <div>
-                        <BubbleSortButton onClick={() => this.bubbleSort()}/>
-                        <QuickSortButton onClick={() => this.quickSort()}/>
-                    </div>
+                    <BubbleSortButton onClick={() => this.bubbleSort()}/>
+                    <QuickSortButton onClick={() => this.quickSort()}/>
                 </div>,
 
                 <div className="barchart">

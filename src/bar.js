@@ -15,7 +15,7 @@ export class Bar extends React.Component {
 
   render() {
     const styles = {
-      height: this.props.value * 2 + 10 + "px",
+      height: this.props.value + "%",
     };
 
     return (

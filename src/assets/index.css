@@ -8,34 +8,68 @@
 	}
 
 	25% {
-		-webkit-transform: translate3d(-2px, 0, 0);
-		transform: translate3d(-2px, 0, 0);
+		-webkit-transform: translate3d(-1px, 0, 0);
+		transform: translate3d(-1px, 0, 0);
 	}
 
 	75% {
-		-webkit-transform: translate3d(2px, 0, 0);
-		transform: translate3d(2px, 0, 0);
+		-webkit-transform: translate3d(1px, 0, 0);
+		transform: translate3d(1px, 0, 0);
 	}
 }
 
+html {
+	font-size: 62.5%;
+	margin: 0;
+}
 
 html, body {
 	height: 100%;
-	margin: 0;
 	color: #574d6b;
 }
 
 body {
 	background-image: linear-gradient(to top, #b893fb, #9764f3);
 	font: 1rem "Nunito", Futura, sans-serif;
+	line-height: 1.6;
 	display: flex;
 	margin: 0 auto;
 	width: 700px;
 	flex-direction: column;
 	background-size: cover;
+	padding: 0 20px;
+	background-attachment: fixed;
+	background-repeat: no-repeat;
 }
 
 /*Buttons*/
+
+.button, button {
+	display: inline-block;
+	height: 38px;
+	padding: 0 30px;
+	color: #555;
+	text-align: center;
+	font-size: 11px;
+	font-weight: 600;
+	line-height: 38px;
+	letter-spacing: .1rem;
+	text-transform: uppercase;
+	text-decoration: none;
+	white-space: nowrap;
+	background-color: transparent;
+	border-radius: 4px;
+	border: 1px solid #bbb;
+	cursor: pointer;
+	box-sizing: border-box;
+}
+
+.button:hover, button:hover, .button:focus, button:focus {
+	color: #333;
+	border-color: #888;
+	outline: 0;
+}
+
 
 .button {
 	height: 48px;
@@ -73,7 +107,7 @@ body {
 	font-size: 1.2rem;
 	padding: 0;
 	height: 30px;
-	margin: 1.5rem 3rem;
+	margin: .5rem 3rem;
 	font-weight: 600 !important;
 }
 
@@ -84,12 +118,14 @@ body {
 .sorting-buttons {
 	margin-top: 50px;
 	display: flex;
+	flex-wrap: wrap;
 	justify-content: center;
 }
 
 .control-buttons {
-	margin-top: -20px;
+	margin: -15px 0 1rem;
 	display: flex;
+	flex-wrap: wrap-reverse;
 	justify-content: space-between;
 }
 
@@ -100,7 +136,7 @@ body {
 /*Barchart*/
 
 .barchart{
-	margin: 50px 0 20px;
+	margin: 50px 0;
 	display: flex;
 	justify-content: center;
 	align-items: center;
@@ -119,7 +155,8 @@ body {
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	height: 380px;
+	height: 300px;
+	padding: 40px 0;
 }
 
 .bar {
@@ -129,8 +166,7 @@ body {
   color: #ffffff;
   border-radius: 50px;
   margin: 0 3px;
-  /*height: 4px;*/
-  padding: 0px 4px;
+  padding: 0 4px;
   transition-duration: .1s;
   background-color: #9764f3;
 }
@@ -140,7 +176,7 @@ body {
 }
 
 .bar.pivot {
-	background-color: #4fc3f7;
+	background-color: #00e2ec;
 }
 
 .bar.swapping {
@@ -169,4 +205,48 @@ body {
 	background-color: #ffb356;
 	left: 0;
 	border-radius: 99px;
+}
+
+
+
+@media (max-width: 800px) {
+	body {
+		width: 500px;
+	}
+
+	.bars {
+		height: 200px;
+	}
+
+	.bar {
+		margin: 0 2px;
+		padding: 0 3px;
+	}
+
+	.bar.pivot-index:before {
+		top: -12px;
+		height: 6px;
+		width: 6px;
+	}
+
+	.control-buttons {
+		justify-content: center;
+	}
+}
+
+@media (max-width: 600px) {
+	body {
+		width: 400px;
+	}
+
+	.bar {
+		margin: 0 2px;
+		padding: 0 2px;
+	}
+
+	.bar.pivot-index:before {
+		top: -8px;
+		height: 4px;
+		width: 4px;
+	}
 }
