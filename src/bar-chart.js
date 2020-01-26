@@ -3,6 +3,7 @@ import React from "react";
 import {Bar, BAR_STATE} from "./bar";
 import {BubbleSortButton, QuickSortButton, SlowDownButton,
     SpeedUpButton, ResetButton} from "./buttons";
+import speedLevel from "./speed-levels";
 
 
 export class BarChart extends React.Component {
@@ -10,7 +11,7 @@ export class BarChart extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            speed: this.props.speed,
+            speedLevel: speedLevel,
             sorting: false,
             barValues: this.generateBarValues(this.props.count)
         };
@@ -67,7 +68,7 @@ export class BarChart extends React.Component {
 
             array[end].sortingState = BAR_STATE.pivot;
             component.setState({barValues: array});
-            await sleep(component.state.speed);
+            await sleep(component.state.speedLevel.stepTimeout);
 
             for(let i = start; i < end; i++) {
                 array[pivotIndex].pivotIndex = true;
@@ -75,20 +76,20 @@ export class BarChart extends React.Component {
                     if (i > pivotIndex) {
                         array[i].sortingState = BAR_STATE.swapping;
                         component.setState({barValues: array});
-                        await sleep(component.state.speed);
+                        await sleep(component.state.speedLevel.stepTimeout);
 
                         swap(i, pivotIndex, array);
                         array[i].pivotIndex = false;
 
                         component.setState({barValues: array});
-                        await sleep(component.state.speed);
+                        await sleep(component.state.speedLevel.stepTimeout);
 
                         array[pivotIndex].sortingState = BAR_STATE.default;
                         component.setState({barValues: array});
                     } else {
                         array[i].sortingState = BAR_STATE.doNothing;
                         component.setState({barValues: array});
-                        await sleep(component.state.speed);
+                        await sleep(component.state.speedLevel.stepTimeout);
                         array[i].sortingState = BAR_STATE.default;
                         array[pivotIndex].pivotIndex = false;
                         component.setState({barValues: array});
@@ -99,22 +100,22 @@ export class BarChart extends React.Component {
                 } else {
                     array[i].sortingState = BAR_STATE.doNothing;
                     component.setState({barValues: array});
-                    await sleep(component.state.speed);
+                    await sleep(component.state.speedLevel.stepTimeout);
                     array[pivotIndex].pivotIndex = false;
                     array[i].sortingState = BAR_STATE.default;
                     component.setState({barValues: array});
                 }
             }
             array[end].sortingState = BAR_STATE.swapping;
-            await sleep(component.state.speed);
+            await sleep(component.state.speedLevel.stepTimeout);
             component.setState({barValues: array});
 
             swap(pivotIndex, end, array);
-            await sleep(component.state.speed);
+            await sleep(component.state.speedLevel.stepTimeout);
             component.setState({barValues: array});
 
             array[pivotIndex].sortingState = BAR_STATE.sorted;
-            await sleep(component.state.speed);
+            await sleep(component.state.speedLevel.stepTimeout);
             component.setState({barValues: array});
 
             return pivotIndex;
@@ -123,7 +124,7 @@ export class BarChart extends React.Component {
         async function quickSort(array, start, end, component) {
             if (start === end) {
                 array[start].sortingState = BAR_STATE.sorted;
-                await sleep(component.state.speed);
+                await sleep(component.state.speedLevel.stepTimeout);
                 component.setState({barValues: array});
                 return;
             } else if (start > end) {
@@ -156,18 +157,18 @@ export class BarChart extends React.Component {
                 if (array[i].value > array[i+1].value) {
                     array[i].sortingState = array[i+1].sortingState = BAR_STATE.swapping;
                     this.setState({barValues: array});
-                    await sleep(this.state.speed/2);
+                    await sleep(this.state.speedLevel.stepTimeout);
 
                     swap(i, i+1, array);
                     this.setState({barValues: array});
-                    await sleep(this.state.speed/2);
+                    await sleep(this.state.speedLevel.stepTimeout);
 
                     counter = 0;
 
                 } else {
                     array[i].sortingState = array[i+1].sortingState = BAR_STATE.doNothing;
                     this.setState({barValues: array});
-                    await sleep(this.state.speed);
+                    await sleep(this.state.speedLevel.stepTimeout);
 
                     counter++;
                 }
@@ -188,19 +189,15 @@ export class BarChart extends React.Component {
     }
 
     async speedUp() {
-        let speed = Math.floor(this.state.speed / 4);
-        await this.setState({speed: speed});
+        let currentSpeedLevel = this.state.speedLevel;
+        await this.setState({speedLevel: currentSpeedLevel.faster});
+        console.log("Step timeout set to " + currentSpeedLevel.faster.stepTimeout + " ms")
     }
 
     async slowDown() {
-        let speed = this.state.speed;
-        if (speed === 0) {
-            await this.setState({speed: 1});
-        }
-        else if (speed < 2048){
-            speed = speed * 4;
-            await this.setState({speed: speed});
-        }
+        let currentSpeedLevel = this.state.speedLevel;
+        await this.setState({speedLevel: currentSpeedLevel.slower});
+        console.log("Step timeout set to " + currentSpeedLevel.slower.stepTimeout + " ms")
     }
 
     render() {
