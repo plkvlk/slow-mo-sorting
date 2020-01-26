@@ -1,5 +1,24 @@
 @import url('https://fonts.googleapis.com/css?family=Nunito:600,700&display=swap');
 
+@keyframes shake {
+	from,
+	to {
+		-webkit-transform: translate3d(0, 0, 0);
+		transform: translate3d(0, 0, 0);
+	}
+
+	25% {
+		-webkit-transform: translate3d(-2px, 0, 0);
+		transform: translate3d(-2px, 0, 0);
+	}
+
+	75% {
+		-webkit-transform: translate3d(2px, 0, 0);
+		transform: translate3d(2px, 0, 0);
+	}
+}
+
+
 html, body {
 	height: 100%;
 	margin: 0;
@@ -78,7 +97,6 @@ body {
 	box-shadow: none;
 }
 
-
 /*Barchart*/
 
 .barchart{
@@ -132,6 +150,10 @@ body {
 .bar.do-nothing {
 	background-color: #ff3e7c;
 	position: relative;
+	-webkit-animation-name: shake;
+	animation-name: shake;
+	-webkit-animation-duration: .1s;
+	animation-duration: .1s;
 }
 
 .bar.pivot-index {
