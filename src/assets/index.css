@@ -8,38 +8,35 @@
 	}
 
 	25% {
-		-webkit-transform: translate3d(-1px, 0, 0);
-		transform: translate3d(-1px, 0, 0);
+		-webkit-transform: translate3d(1px, 0, 0);
+		transform: translate3d(1px, 0, 0);
 	}
 
 	75% {
-		-webkit-transform: translate3d(1px, 0, 0);
-		transform: translate3d(1px, 0, 0);
+		-webkit-transform: translate3d(-1px, 0, 0);
+		transform: translate3d(-1px, 0, 0);
 	}
 }
 
 html {
 	font-size: 62.5%;
 	margin: 0;
+	height: 100%;
 }
 
 html, body {
-	height: 100%;
 	color: #574d6b;
+	max-width: 100%;
+	width: 100%;
 }
 
 body {
 	background-image: linear-gradient(to top, #b893fb, #9764f3);
 	font: 1rem "Nunito", Futura, sans-serif;
 	line-height: 1.6;
-	margin: 0 auto;
-	width: 700px;
-	padding: 0 20px;
-	background-size: 100%;
+	margin: 0;
+	background-size: cover;
 	background-attachment: fixed;
-	top: 0;
-	left: 0;
-	min-height: 100%;
 }
 
 /*Buttons*/
@@ -136,7 +133,7 @@ body {
 /*Barchart*/
 
 .barchart{
-	margin: 50px 0;
+	margin: 50px 10px;
 	display: flex;
 	justify-content: center;
 	align-items: center;
@@ -148,15 +145,15 @@ body {
 	box-shadow: rgba(0,0,0,.3) 0 5px 20px;
 	background-color: #ffffff;
 	width: 100%;
-
+	max-width: 700px;
 }
 
 .bars {
 	display: flex;
-	justify-content: center;
+	justify-content: space-between;
 	align-items: center;
-	height: 300px;
-	padding: 40px 0;
+	height: 240px;
+	padding: 80px;
 }
 
 .bar {
@@ -165,7 +162,6 @@ body {
   font-size: 0rem;
   color: #ffffff;
   border-radius: 50px;
-  margin: 0 3px;
   padding: 0 4px;
   transition-duration: .1s;
   background-color: #9764f3;
@@ -210,16 +206,21 @@ body {
 
 
 @media (max-width: 800px) {
-	body {
-		width: 500px;
+
+	.sorting-buttons, .barchart {
+		margin-top: 30px;
+	}
+
+	.barchart-card {
+		max-width: 480px;
 	}
 
 	.bars {
-		height: 200px;
+		height: 120px;
+		padding: 40px 30px;
 	}
 
 	.bar {
-		margin: 0 2px;
 		padding: 0 3px;
 	}
 
@@ -228,19 +229,19 @@ body {
 		height: 6px;
 		width: 6px;
 	}
-
-	.control-buttons {
-		justify-content: center;
-	}
 }
 
 @media (max-width: 600px) {
-	body {
-		width: 400px;
+
+	.sorting-buttons, .barchart {
+		margin-top: 20px;
+	}
+
+	.barchart-card {
+		max-width: 360px;
 	}
 
 	.bar {
-		margin: 0 2px;
 		padding: 0 2px;
 	}
 
@@ -248,5 +249,9 @@ body {
 		top: -8px;
 		height: 4px;
 		width: 4px;
+	}
+
+	.control-buttons {
+		justify-content: center;
 	}
 }
